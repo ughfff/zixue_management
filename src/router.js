@@ -1,23 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Login from './components/Login.vue'
+import home from './components/home.vue'
+import welcome from './components/welcome.vue'
+import yhgl from './components/user/yhgl.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path:'/',redirect:'/login'
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path:'/login',component:Login
+    },
+    {
+      path:'/home',component:home,
+      redirect:'/welcome', //别忘了在main位置放路由占位符
+      children:[
+        { path:'/welcome',component:welcome },
+        { path:'/yhgl' ,component:yhgl }
+      ]
     }
   ]
 })
